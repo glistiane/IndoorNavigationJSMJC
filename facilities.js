@@ -5,13 +5,13 @@ const campusData = {
     shsRooms: [
         { 
             name: "Room 101 (SHS)", 
-            coords: [2078.30, 254.00], 
+            coords: [2128.10, 237.00], 
             type: "room", 
             description: "Main Computer Laboratory - PC Units 1-40" 
         },
         { 
             name: "Room 102 (SHS)", 
-            coords: [2320.31, 248.00], 
+            coords: [2375.03, 241.00], 
             type: "room", 
             description: "Research Advisers & Department Heads" 
         }
@@ -19,8 +19,44 @@ const campusData = {
     // INSERTION 1: Add your JHS Rooms array right here!
     jhsRooms: [
         { 
-            name: "Room 201 (JHS)", 
-            coords: [1594.18, 2236.00], 
+            name: "Room 107 (JHS)", 
+            coords: [1624.04, 2252.00], 
+            type: "room", 
+            description: "Junior High School Classroom" 
+        },
+        { 
+            name: "Room 106 (JHS)", 
+            coords: [1457.58, 2242.00], 
+            type: "room", 
+            description: "Junior High School Classroom" 
+        },
+        { 
+            name: "Room 105 (JHS)", 
+            coords: [1090.12, 2208.00],
+            type: "room", 
+            description: "Junior High School Classroom" 
+        },
+        { 
+            name: "Room 104 (JHS)", 
+            coords: [914.11, 2201.00], 
+            type: "room", 
+            description: "Junior High School Classroom" 
+        },
+        { 
+            name: "Room 103 (JHS)", 
+            coords: [757.55, 2189.50], 
+            type: "room", 
+            description: "Junior High School Classroom" 
+        },
+        { 
+            name: "Room 102 (JHS)", 
+            coords: [587.17, 2177.00], 
+            type: "room", 
+            description: "Junior High School Classroom" 
+        },
+        { 
+            name: "Room 101 (JHS)", 
+            coords: [414.43, 2166.00], 
             type: "room", 
             description: "Junior High School Classroom" 
         }
@@ -28,7 +64,7 @@ const campusData = {
     facilities: [
         { 
             name: "SHS Registrar", 
-            coords: [1712.29, 230.00], 
+            coords: [1766.09, 236.00], 
             type: "facility", 
             description: "Ground floor comfort rooms" 
         },
@@ -37,18 +73,54 @@ const campusData = {
             coords: [2556.05, 454.00], 
             type: "facility", 
             description: "Senior high school Student dining and food area" 
+        },
+        { 
+            name: "JHS Canteen", 
+            coords: [2604.26, 2220.00], 
+            type: "facility", 
+            description: "Senior high school Student dining and food area" 
+        },
+        { 
+            name: "Clinic", 
+            coords: [1963.16, 2386.00], 
+            type: "facility", 
+            description: "Senior high school Student dining and food area" 
+        },
+        { 
+            name: "School Supplies", 
+            coords: [2212.34, 2408.00], 
+            type: "facility", 
+            description: "Senior high school Student dining and food area" 
+        },
+        { 
+            name: "Hall", 
+            coords: [2179.15, 1404.00], 
+            type: "facility", 
+            description: "Senior high school Student dining and food area" 
+        },
+        { 
+            name: "Covered Court", 
+            coords: [2539.15, 2804.00], 
+            type: "facility", 
+            description: "Senior high school Student dining and food area" 
+        },
+        { 
+            name: "Stage", 
+            coords: [1764.23, 1342.00], 
+            type: "facility", 
+            description: "Senior high school Student dining and food area" 
         }
     ],
     landmarks: [
         { 
             name: "Front Gate", 
-            coords: [111.36, 2586.00], 
+            coords: [133.57, 2574.25], 
             type: "landmark", 
             description: "Gate 1 - Main Gate entry point" 
         },
         { 
             name: "Back Gate", 
-            coords: [3064.20, 2648.00], 
+            coords: [3096.00, 2631.25], 
             type: "landmark", 
             description: "Gate 2 - Back Gate entry point" 
         }
@@ -85,8 +157,21 @@ function renderAllMarkers() {
         var marker = L.marker(item.coords, { icon: textIcon }).addTo(map);
 
         // Build a string of all options for the starting point dropdown
-        let roomOptionsHTML = allLocations.map(loc => `<option value="${loc.name}">${loc.name}</option>`).join('');
-
+        // Build categorized dropdown options for the starting point
+        let roomOptionsHTML = `
+            <optgroup label="SHS Rooms">
+                ${campusData.shsRooms.map(loc => `<option value="${loc.name}">${loc.name}</option>`).join('')}
+            </optgroup>
+            <optgroup label="JHS Rooms">
+                ${campusData.jhsRooms.map(loc => `<option value="${loc.name}">${loc.name}</option>`).join('')}
+            </optgroup>
+            <optgroup label="Facilities">
+                ${campusData.facilities.map(loc => `<option value="${loc.name}">${loc.name}</option>`).join('')}
+            </optgroup>
+            <optgroup label="Landmarks">
+                ${campusData.landmarks.map(loc => `<option value="${loc.name}">${loc.name}</option>`).join('')}
+            </optgroup>
+        `;
         marker.bindPopup(`
             <div style="font-family: sans-serif; min-width: 200px;">
                 <h3 style="margin: 0 0 5px 0; color: #1a365d;">${item.name}</h3>
